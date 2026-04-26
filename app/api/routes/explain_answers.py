@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Request, Header, HTTPException
 import os
 from groq import Groq
 import json
@@ -6,6 +6,8 @@ import re
 
 router = APIRouter()
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
+
+INTERNAL_API_KEY = os.getenv("INTERNAL_API_KEY")
 
 
 def extract_json(text):
@@ -20,7 +22,14 @@ def extract_json(text):
 
 
 @router.post("/explain-answers")
-async def explain_answers(request: Request):
+async def explain_answers(
+    request: Request,
+    x_api_key: str = Header(None)
+):
+    # 🔐 SECURITY CHECK
+    if x_api_key != INTERNAL_API_KEY:
+        raise HTTPException(status_code=401, detail="Unauthorized")
+
     try:
         body = await request.json()
         questions = body.get("questions", [])
