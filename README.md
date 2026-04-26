@@ -8,6 +8,8 @@ The **FinLit AI Service** is a high-performance backend microservice built with 
 - **RESTful API**: Clean and documentation-friendly endpoints using FastAPI.
 - **Scalable Architecture**: Modular structure designed for growth.
 - **Asynchronous Execution**: Fully utilizes Python's `asyncio` for high concurrency.
+- **Contextual Intelligence**: Analyzes user financial profiles and transactions for personalized advice.
+- **Session Management**: Supports multiple persistent chat sessions with history tracking.
 
 ## 🛠️ Tech Stack
 
